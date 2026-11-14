@@ -12,7 +12,7 @@
 | Challenge | T08 · Retention & Delete Request Simulator |
 | Thành viên + vai trò | Nguyễn Thái Dương (2A202603207) — toàn bộ: integrator, data/baseline, algorithm, tests, review (DPO mock), report |
 | Git URL | https://github.com/Duongbotroll/K5-L2A-DAY06-NguyenThaiDuong-2A202603207-DataGovernanceAndPrivacy |
-| Tag `demo-180m` (commit) | `aaf9b29` |
+| Tag `demo-180m` (commit) | `79aaef7` |
 | Tag `final-24h` (commit) | tag `final-24h` trên GitHub (commit cuối nhánh main) |
 | Deadline (giờ VN) | +24h sau buổi lab ngày 14/11/2026 |
 
@@ -63,9 +63,9 @@
 
 ## 04 · Baseline vs PoC
 
-- **Baseline** (`src/baseline_t08.py`, commit `932790e`): xoá raw_video có `filename` chứa subject_id; không duyệt derived,
+- **Baseline** (`src/baseline_t08.py`, commit `31c598d`): xoá raw_video có `filename` chứa subject_id; không duyệt derived,
   không kiểm hold/quyền.
-- **PoC** (`src/pipeline.py` + `src/t08/`, commit `2384b6b`, review `713688a`/`aaf9b29`): như mục 03.
+- **PoC** (`src/pipeline.py` + `src/t08/`, commit `3be70b8`, review `b33230f`/`79aaef7`): như mục 03.
 - Cùng pool 10 request × 212 artefact, cùng seed 42, cùng lệnh `src.main --offline`.
 
 **Bảng 1 · Baseline vs PoC (self-eval không GT, `reports/self_eval_t08.md`)**
@@ -130,7 +130,7 @@
 - **Override + audit:** người duyệt "Nguyễn Thái Dương - DPO mock" approve 55 dòng, **edit 1 dòng** (`DR-004:a0075`
   escalate → retain_legal_hold, lý do "chờ xác minh nguồn gốc embedding, chưa xoá"). `review()` áp quyết định, đổi
   `reason_code` thành `HUMAN_EDIT`, ghi `review:<decision>` vào `audit_log.jsonl` (append-only). Ghi chú review bị lệch nhóm ở
-  lần đầu đã được sửa (commit `aaf9b29`); log giữ cả bản cũ và bản sửa.
+  lần đầu đã được sửa (commit `79aaef7`); log giữ cả bản cũ và bản sửa.
 - **Decision:** `HOLD · ESCALATED_AWAITING_RESOLUTION · owner Nguyễn Thái Dương (DPO mock)` — xoá 102, giữ 41 theo legal hold,
   15 cặp đã chuyển cấp chờ xử lý (`reports/decision_log.csv`).
 - **Khi nào HOLD thay vì tự động release:** còn ngoại lệ chưa có người duyệt; còn artefact ngoài quyền (vendor) chưa có
@@ -168,8 +168,9 @@ pytest -q
 
 | Học viên | Git author | Module / vai trò | Commit SHA | Trình bày? |
 |---|---|---|---|---|
-| Nguyễn Thái Dương | Nguyễn Thái Dương | toàn bộ (làm cá nhân) | `de6930f` contract · `932790e` baseline+lineage/policy · `2384b6b` pipeline+tests · `713688a` review tool + evidence · `aaf9b29` sửa ghi chú review | Có |
+| Nguyễn Thái Dương | Nguyễn Thái Dương | toàn bộ (làm cá nhân) | `22b9f8f` contract · `31c598d` baseline+lineage/policy · `3be70b8` pipeline+tests · `b33230f` review tool + evidence · `79aaef7` sửa ghi chú review | Có |
 
+- Trong `git shortlog` có `loversky02` và `Tin Duong`: đó là lịch sử của repo gốc VinUni-AI20k (đến commit `b0ce8bf`), không phải đóng góp của bài này.
 - **Sử dụng AI:** có dùng trợ lý AI (Claude) hỗ trợ viết code, test và bản nháp report; tôi chạy, kiểm tra, review ngoại lệ và
   quyết định policy. (Sửa câu này theo quy định của lớp.)
 
