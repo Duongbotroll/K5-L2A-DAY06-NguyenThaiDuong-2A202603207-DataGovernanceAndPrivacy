@@ -143,9 +143,17 @@ def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
     owner = ctx.config.get("owner", "TODO-owner")
     metrics = {"n_delete": n_del, "n_retain_legal_hold": n_hold, "n_escalate": n_esc, "n_pairs": len(final)}
     evidence = [str(ctx.out(f)) for f in ("actions.csv", "dry_run_plan.csv", "audit_log.jsonl", "request_summary.csv")]
+    exc = final[final.action != "delete"]
+    n_unreviewed = int((exc.reviewed_by.fillna("") == "").sum())
+    metrics["n_exceptions_unreviewed"] = n_unreviewed
+    if n_unreviewed:
+        return Decision(status="HOLD", reason_code="EXCEPTIONS_PENDING_REVIEW",
+                        reason=f"{n_unreviewed}/{len(exc)} ngoại lệ chưa có người duyệt; chạy tools.review_t08 rồi chạy lại",
+                        owner=owner, scope="t08:all_requests", evidence=evidence, metrics=metrics)
     if n_esc:
-        return Decision(status="HOLD", reason_code="ESCALATIONS_PENDING_REVIEW",
-                        reason=f"{n_esc} cặp cần người duyệt (quyền/nguồn gốc/nhiều subject) trước khi đóng request",
+        return Decision(status="HOLD", reason_code="ESCALATED_AWAITING_RESOLUTION",
+                        reason=f"Đã duyệt hết ngoại lệ; xoá {n_del}, giữ {n_hold} theo legal hold, "
+                               f"{n_esc} cặp đã chuyển cấp (quyền/nguồn gốc/nhiều subject) chờ xử lý trước khi đóng request",
                         owner=owner, scope="t08:all_requests", evidence=evidence, metrics=metrics)
     return Decision(status="GO", reason_code="ALL_RESOLVED",
                     reason=f"Xoá {n_del} artefact; {n_hold} giữ theo legal hold và hẹn xoá khi hết hold",

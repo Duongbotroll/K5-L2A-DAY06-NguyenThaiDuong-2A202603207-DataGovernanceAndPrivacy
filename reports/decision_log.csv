@@ -1,0 +1,4 @@
+ts,scope,status,canonical,reason_code,reason,owner,evidence
+2026-11-14T08:49:21+00:00,t08:all_requests,HOLD,HOLD,ESCALATIONS_PENDING_REVIEW,16 cặp cần người duyệt (quyền/nguồn gốc/nhiều subject) trước khi đóng request,Nguyễn Thái Dương (DPO mock),out/poc/actions.csv;out/poc/dry_run_plan.csv;out/poc/audit_log.jsonl;out/poc/request_summary.csv
+2026-11-14T09:07:52+00:00,t08:all_requests,HOLD,HOLD,EXCEPTIONS_PENDING_REVIEW,56/56 ngoại lệ chưa có người duyệt; chạy tools.review_t08 rồi chạy lại,Nguyễn Thái Dương (DPO mock),out/poc/actions.csv;out/poc/dry_run_plan.csv;out/poc/audit_log.jsonl;out/poc/request_summary.csv
+2026-11-14T09:13:59+00:00,t08:all_requests,HOLD,HOLD,ESCALATED_AWAITING_RESOLUTION,"Đã duyệt hết ngoại lệ; xoá 102, giữ 41 theo legal hold, 15 cặp đã chuyển cấp (quyền/nguồn gốc/nhiều subject) chờ xử lý trước khi đóng request",Nguyễn Thái Dương (DPO mock),out/poc/actions.csv;out/poc/dry_run_plan.csv;out/poc/audit_log.jsonl;out/poc/request_summary.csv
