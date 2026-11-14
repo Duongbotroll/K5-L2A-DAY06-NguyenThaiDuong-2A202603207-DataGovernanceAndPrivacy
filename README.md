@@ -1,3 +1,12 @@
+## Bài nộp T08 · Nguyễn Thái Dương (2A202603207, làm cá nhân)
+
+- Repo: https://github.com/Duongbotroll/K5-L2A-DAY06-NguyenThaiDuong-2A202603207-DataGovernanceAndPrivacy · tag `demo-180m`, `final-24h`
+- Report: `reports/group_report.md` · metric contract: `reports/metric_contract.md` · self-eval: `reports/self_eval_t08.md`
+- Chạy: `make setup && ./run.sh t08` (PoC offline + pytest) · baseline: `python -m src.main --track t08 --pipeline src.baseline_t08 --output out/baseline --run-name baseline --offline --seed 42`
+- Review ngoại lệ: `python -m tools.review_t08` rồi `make run TRACK=t08`
+
+---
+
 # Day 06 · Data Lab · Field-to-Release PoC (AI20K · Data Track)
 
 Starter repo cho bài lab **Data Pipeline, Privacy & Production PoC**: 14 challenge (T01–T14), một contract chung.

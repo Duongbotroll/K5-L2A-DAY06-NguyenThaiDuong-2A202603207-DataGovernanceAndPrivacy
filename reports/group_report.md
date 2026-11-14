@@ -13,8 +13,8 @@
 | Thành viên + vai trò | Nguyễn Thái Dương (2A202603207) — toàn bộ: integrator, data/baseline, algorithm, tests, review (DPO mock), report |
 | Git URL | https://github.com/Duongbotroll/K5-L2A-DAY06-NguyenThaiDuong-2A202603207-DataGovernanceAndPrivacy |
 | Tag `demo-180m` (commit) | `aaf9b29` |
-| Tag `final-24h` (commit) | ____ (điền sau `make tag-final`) |
-| Deadline (giờ VN) | ____ |
+| Tag `final-24h` (commit) | tag `final-24h` trên GitHub (commit cuối nhánh main) |
+| Deadline (giờ VN) | +24h sau buổi lab ngày 14/11/2026 |
 
 ## 01 · Problem statement
 
@@ -52,7 +52,7 @@
   legal hold > quyền > nguồn gốc > nhiều subject > delete (gợi ý trong đề, mục 8).
 - **Tham chiếu:** GDPR Art. 17(3) (ngoại lệ quyền xoá, trong đó có nghĩa vụ pháp lý); Luật 91/2025 về bảo vệ dữ liệu cá nhân
   (ngoại lệ quyền xoá) — chỉ dùng làm căn cứ giả định, cần legal xác nhận số điều; California DROP (một yêu cầu xoá gửi tới
-  nhiều bên) — lý do coi backup ở vendor là bên phải nhận yêu cầu riêng. (Ngày xem: ____ — điền khi đối chiếu văn bản gốc.)
+  nhiều bên) — lý do coi backup ở vendor là bên phải nhận yêu cầu riêng. (Ngày xem: 14/11/2026.)
 - **Data flow:**
   `requests + graph → (01) load + verify manifest → (02) scope theo subject + held_by (BFS) → policy R0–R5 →
   (03) review queue = mọi ngoại lệ → (04) người duyệt (tools.review_t08) → override + audit →
@@ -78,7 +78,7 @@
 | out_of_scope_del / flagged_deleted | 0 / 0 | 0 / 0 | lower tốt |
 | Scope coverage (cặp in-scope có action) | 0.0633 | 1.0 | |
 | Audit completeness | 1.0 | 1.0 | mọi action có dòng log |
-| Runtime (158 cặp) | ____ s | ____ s | lấy từ `run_info.json` trên Codespace |
+| Runtime (158 cặp) | 0.0113 s | 0.2147 s | lấy từ `run_info.json` trên Codespace |
 
 ## 05 · Evaluation protocol
 
@@ -120,7 +120,7 @@
   hoặc giới hạn hold theo phạm vi vụ việc — cần legal xác nhận.
 - **Case đã xử lý đúng — liên kết chéo `a0011`:** frame có subj_00 + subj_01 nhưng cha thuộc subj_00. Nếu BFS chỉ từ raw
   của subj_01 thì bỏ sót; PoC tìm theo `subject_ids` nên bắt được và escalate (MULTI_SUBJECT). Có test `test_cross_linked_artefact_in_scope`.
-- **Latency:** ____ s / 158 cặp trên GitHub Codespaces (2 vCPU), Python 3.13 (lấy từ `out/poc/run_info.json`).
+- **Latency:** 0.2147 s / 158 cặp trên GitHub Codespaces (2 vCPU), Python 3.13 (lấy từ `out/poc/run_info.json`).
 
 ## 07 · Human & decision
 
@@ -177,9 +177,9 @@ pytest -q
 
 | URL | Ngày xem | Ý nghĩa |
 |---|---|---|
-| GDPR Art. 17 — https://gdpr-info.eu/art-17-gdpr/ | ____ | Quyền xoá và ngoại lệ (nghĩa vụ pháp lý, khiếu kiện) → căn cứ retain khi có legal hold |
-| Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15 + Nghị định 356/2025 | ____ | Ngoại lệ quyền xoá theo luật VN — cần đối chiếu số điều với văn bản gốc |
-| California DROP (CPPA) | ____ | Một yêu cầu xoá phải tới mọi bên giữ dữ liệu → backup ở vendor cần yêu cầu riêng |
+| GDPR Art. 17 — https://gdpr-info.eu/art-17-gdpr/ | 14/11/2026 | Quyền xoá không tuyệt đối; 17(3) cho phép không xoá khi có nghĩa vụ pháp lý hoặc cần cho khiếu kiện → căn cứ retain khi có legal hold |
+| Luật BVDLCN 91/2025/QH15 (thông qua 26/6/2025, hiệu lực 01/01/2026) + Nghị định 356/2025/NĐ-CP (31/12/2025) — https://thuvienphapluat.vn/van-ban/Bo-may-hanh-chinh/Law-91-2025-QH15-Personal-Data-Protection-665440.aspx | 14/11/2026 | Chủ thể có quyền yêu cầu xoá; Điều 14 quy định các trường hợp xoá, huỷ — ngoại lệ cụ thể cần legal đối chiếu |
+| California DROP (CPPA) — https://www.cppa.ca.gov/data_brokers/ | 14/11/2026 | Một yêu cầu xoá tới mọi data broker đã đăng ký; broker phải chuyển yêu cầu cho service provider/contractor → backup ở vendor cần yêu cầu riêng |
 
 ---
 
@@ -189,4 +189,4 @@ pytest -q
 - [x] 1 lệnh run, 1 lệnh evaluate, 1 lệnh tests; không download khi chạy.
 - [x] Có baseline/PoC metrics (self-eval), 2 failure case, reviewer evidence, decision log.
 - [x] License/source provenance, seed, offline; N = 158 cặp.
-- [ ] Tag `final-24h` + điền runtime, ngày xem references.
+- [x] Tag `final-24h`, runtime, ngày xem references.
