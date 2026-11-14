@@ -131,7 +131,7 @@ def execute(ctx: RunContext, final: pd.DataFrame) -> None:
                .reindex(columns=list(ACTIONS), fill_value=0).reset_index())
     summary = summary.merge(final.groupby("request_id").deadline.first().reset_index(), on="request_id")
     summary["status"] = summary.apply(lambda s: "DONE" if s.escalate == 0 and s.retain_legal_hold == 0
-                                      else ("PENDING_REVIEW" if s.escalate else "PARTIAL_HOLD"), axis=1)
+                                      else ("ESCALATED_OPEN" if s.escalate else "PARTIAL_HOLD"), axis=1)
     summary.to_csv(ctx.out("request_summary.csv"), index=False)
     ctx.stats.update({"dry_run": dry_run, **{f"n_{a}": int((final.action == a).sum()) for a in ACTIONS}})
 

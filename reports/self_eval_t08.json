@@ -1,0 +1,38 @@
+[
+ {
+  "run": "baseline",
+  "n_rows": 10,
+  "in_scope_pairs": 158,
+  "scope_coverage": 0.0633,
+  "delete_coverage": 0.0784,
+  "delete_coverage_ci95": [
+   0.0403,
+   0.1472
+  ],
+  "delete_coverage_counts": "8/102",
+  "held_deleted": 2,
+  "out_of_scope_del": 0,
+  "flagged_deleted": 0,
+  "copies_left": "52/52",
+  "audit_completeness": 1.0,
+  "runtime_s": 0.0113
+ },
+ {
+  "run": "poc",
+  "n_rows": 158,
+  "in_scope_pairs": 158,
+  "scope_coverage": 1.0,
+  "delete_coverage": 1.0,
+  "delete_coverage_ci95": [
+   0.9637,
+   1.0
+  ],
+  "delete_coverage_counts": "102/102",
+  "held_deleted": 0,
+  "out_of_scope_del": 0,
+  "flagged_deleted": 0,
+  "copies_left": "0/52",
+  "audit_completeness": 1.0,
+  "runtime_s": 0.2147
+ }
+]
